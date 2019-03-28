@@ -153,11 +153,30 @@ print("Done!")
 saver = tf.train.Saver()
 save_path = saver.save(sess, "./unet-model.ckpt")
 print("Model saved in path: %s" % save_path)
+#%%
+# Restore variables from disk.
+# Later, launch the model, use the saver to restore variables from disk, and
+# do some work with the model.
+#tf.reset_default_graph()
+# Add ops to save and restore all the variables.
+saver = tf.train.Saver()
+#init = tf.global_variables_initializer()
+sess = tf.Session()
+#sess.run(init)
+saver.restore(sess, "./unet-model.ckpt")
+print("Model restored.")
+#with tf.Session() as sess:
+#  # Restore variables from disk.
+#  saver.restore(sess, "./unet-model.ckpt")
+#  print("Model restored.")
+#  # Check the values of the variables
+
+
 
 #%%
-ix = 3 #random.randint(0, 64) #len(X_test) - 1 = 64
+ix = 10 #random.randint(0, 64) #len(X_test) - 1 = 64
 test_image = X_test[ix].astype(float)
-imshow(test_image)
+imshow(test_image.astype(np.uint8))
 plt.show()
 #%%
 def sigmoid(x):
